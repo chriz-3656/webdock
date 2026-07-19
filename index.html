@@ -3,43 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEBDOCK // NATIVE WEB APPS</title>
+  <title>WebDock</title>
   <meta name="description" content="WebDock is a blazing fast, lightweight native desktop environment that transforms your favorite websites and web apps into standalone native desktop applications.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --fg: #ffffff;
-      --border: 3px solid #ffffff;
-      --accent-1: #ccff00; /* Neon Yellow */
-      --accent-2: #ff0055; /* Neon Pink */
-      --accent-3: #00f0ff; /* Neon Cyan */
+      --bg-color: #0A0A0A;
+      --surface-color: #141414;
+      --border-color: #2E2E2E;
+      --text-color: #FAFAFA;
+      --text-muted: #A1A1AA;
+      --accent-color: #3B82F6;
+      --hover-color: #1F1F1F;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--fg);
+      background-color: var(--bg-color);
+      color: var(--text-color);
       overflow-x: hidden;
-      line-height: 1.5;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: -1px;
-    }
-
-    .mono {
-      font-family: 'Space Mono', monospace;
+      line-height: 1.6;
+      letter-spacing: -0.02em;
     }
 
     /* Navbar */
@@ -47,171 +40,115 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 5%;
-      border-bottom: var(--border);
-      background: var(--bg);
+      padding: 20px 10%;
+      background: var(--bg-color);
+      border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
     }
     .logo {
-      font-size: 2rem;
-      font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 16px;
-      text-transform: uppercase;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--text-color);
     }
     .logo img {
-      width: 48px;
-      height: 48px;
-      border: var(--border);
-      box-shadow: 4px 4px 0 var(--accent-1);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
     }
+    
     .nav-links {
       display: flex;
       gap: 32px;
     }
     .nav-links a {
-      color: var(--fg);
+      color: var(--text-muted);
       text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      padding: 8px 16px;
-      border: 2px solid transparent;
-      transition: all 0.2s;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
     }
     .nav-links a:hover {
-      border: var(--border);
-      background: var(--accent-3);
-      color: var(--bg);
-      box-shadow: 4px 4px 0 var(--fg);
+      color: var(--text-color);
     }
 
     /* Hero Section */
     .hero {
-      padding: 80px 5%;
+      padding: 120px 10% 80px 10%;
+      text-align: center;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      border-bottom: var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        45deg,
-        var(--bg),
-        var(--bg) 10px,
-        #1a1a1a 10px,
-        #1a1a1a 20px
-      );
-      z-index: -1;
-      border-left: var(--border);
-    }
-    .badge {
-      font-family: 'Space Mono', monospace;
-      background: var(--accent-1);
-      color: var(--bg);
-      padding: 8px 16px;
-      border: var(--border);
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 32px;
-      box-shadow: 4px 4px 0 var(--fg);
+      align-items: center;
+      justify-content: center;
     }
     .hero h1 {
-      font-size: clamp(3rem, 8vw, 6rem);
-      line-height: 0.9;
-      max-width: 900px;
-      margin-bottom: 32px;
-      text-shadow: 6px 6px 0 var(--accent-2);
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      max-width: 800px;
+      color: var(--text-color);
     }
     .hero p {
-      font-size: 1.5rem;
-      max-width: 700px;
-      margin-bottom: 48px;
-      font-family: 'Space Mono', monospace;
-      background: var(--bg);
-      padding: 16px;
-      border: var(--border);
-      box-shadow: 6px 6px 0 var(--accent-3);
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 40px;
     }
-    
     .cta-group {
       display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
+      gap: 16px;
     }
     .btn {
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-transform: uppercase;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
       text-decoration: none;
-      padding: 16px 32px;
-      border: var(--border);
+      transition: var(--transition);
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
       cursor: pointer;
-      transition: transform 0.1s, box-shadow 0.1s;
+      border: 1px solid transparent;
     }
     .btn-primary {
-      background: var(--accent-1);
-      color: var(--bg);
-      box-shadow: 6px 6px 0 var(--fg);
+      background-color: var(--accent-color);
+      color: #ffffff;
     }
-    .btn-primary:active {
-      transform: translate(6px, 6px);
-      box-shadow: 0px 0px 0 var(--fg);
+    .btn-primary:hover {
+      background-color: #2563EB;
     }
     .btn-secondary {
-      background: var(--bg);
-      color: var(--fg);
-      box-shadow: 6px 6px 0 var(--accent-2);
+      background-color: var(--surface-color);
+      color: var(--text-color);
+      border-color: var(--border-color);
     }
-    .btn-secondary:active {
-      transform: translate(6px, 6px);
-      box-shadow: 0px 0px 0 var(--accent-2);
+    .btn-secondary:hover {
+      background-color: var(--hover-color);
     }
 
-    /* Carousel / Screenshots */
+    /* Carousel Section */
     .carousel-section {
-      padding: 80px 5%;
-      border-bottom: var(--border);
-      background: var(--accent-3);
-    }
-    .carousel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 40px;
-      color: var(--bg);
-    }
-    .carousel-header h2 {
-      font-size: 3rem;
-      text-shadow: 4px 4px 0 var(--fg);
+      padding: 0 10% 80px 10%;
     }
     .carousel-container {
       width: 100%;
-      border: var(--border);
-      background: var(--bg);
-      box-shadow: 12px 12px 0 var(--fg);
-      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--surface-color);
       overflow: hidden;
+      position: relative;
     }
     .carousel-slides {
       display: flex;
-      transition: transform 0.4s steps(4, end);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .slide {
       min-width: 100%;
@@ -219,183 +156,151 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border-right: var(--border);
     }
     .slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: contrast(1.1) grayscale(0.2);
-    }
-    .carousel-controls {
-      display: flex;
-      border-top: var(--border);
-      background: var(--bg);
     }
     .carousel-btn {
-      flex: 1;
-      padding: 20px;
-      background: var(--bg);
-      color: var(--fg);
-      border: none;
-      border-right: var(--border);
-      font-family: 'Space Mono', monospace;
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--surface-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-    }
-    .carousel-btn:last-child {
-      border-right: none;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 10;
     }
     .carousel-btn:hover {
-      background: var(--fg);
-      color: var(--bg);
+      background: var(--hover-color);
+      border-color: var(--accent-color);
     }
-    
+    .carousel-prev { left: 16px; }
+    .carousel-next { right: 16px; }
+
     /* Features Grid */
-    .features-section {
-      padding: 80px 5%;
-      border-bottom: var(--border);
+    .section {
+      padding: 80px 10%;
+      border-top: 1px solid var(--border-color);
     }
     .section-title {
-      font-size: 4rem;
-      margin-bottom: 64px;
-      text-shadow: 4px 4px 0 var(--accent-1);
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 48px;
+      color: var(--text-color);
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
     }
     .card {
-      background: var(--bg);
-      border: var(--border);
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
       padding: 32px;
-      box-shadow: 8px 8px 0 var(--accent-2);
-      transition: transform 0.2s;
+      transition: var(--transition);
     }
     .card:hover {
-      transform: translate(-4px, -4px);
-      box-shadow: 12px 12px 0 var(--accent-2);
+      border-color: var(--accent-color);
     }
     .card-icon {
-      width: 64px;
-      height: 64px;
-      border: var(--border);
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 24px;
-      background: var(--fg);
-      color: var(--bg);
+      color: var(--accent-color);
+      background: rgba(59, 130, 246, 0.1);
     }
     .card h3 {
-      font-size: 1.8rem;
-      margin-bottom: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-color);
     }
     .card p {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
-      color: #ccc;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
     }
 
     /* Installation */
-    .install-section {
-      padding: 80px 5%;
-      background: var(--accent-2);
-      color: var(--bg);
-      border-bottom: var(--border);
-    }
-    .install-section .section-title {
-      text-shadow: 4px 4px 0 var(--fg);
-    }
     .code-block {
-      background: var(--bg);
-      border: var(--border);
-      box-shadow: 12px 12px 0 var(--fg);
-      color: var(--fg);
-      max-width: 900px;
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 800px;
     }
     .code-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
-      border-bottom: var(--border);
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-color);
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
     .copy-btn {
-      background: var(--accent-1);
-      color: var(--bg);
-      border: var(--border);
-      padding: 8px 16px;
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      text-transform: uppercase;
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
       cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
     }
-    .copy-btn:active {
-      transform: translate(2px, 2px);
+    .copy-btn:hover {
+      color: var(--text-color);
     }
     .code-body {
-      padding: 32px;
+      padding: 24px;
       overflow-x: auto;
     }
     .code-body pre {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      color: var(--text-color);
     }
-    .code-comment { color: var(--accent-3); }
-    .code-command { color: var(--accent-1); }
+    .code-comment { color: var(--text-muted); }
+    .code-command { color: var(--accent-color); }
 
     /* Footer */
     footer {
-      padding: 64px 5%;
+      padding: 40px 10%;
+      border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
     }
     .footer-logo {
-      font-size: 2rem;
-      font-weight: 700;
-      font-family: 'Space Grotesk', sans-serif;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      text-align: right;
-    }
-    .footer-links a {
-      color: var(--fg);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-    .footer-links a:hover {
-      background: var(--fg);
-      color: var(--bg);
-      text-decoration: none;
+      font-weight: 600;
+      color: var(--text-color);
     }
 
     /* Responsive */
-    @media (max-width: 900px) {
-      .hero { padding: 60px 5%; }
-      .hero h1 { font-size: 3rem; text-shadow: 4px 4px 0 var(--accent-2); }
-      .hero p { font-size: 1.2rem; }
-      .hero::after { display: none; }
+    @media (max-width: 768px) {
+      .hero { padding: 80px 5% 40px 5%; }
       .nav-links { display: none; }
-      .carousel-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .carousel-btn span { display: none; }
+      .cta-group { flex-direction: column; width: 100%; max-width: 300px; }
+      .btn { justify-content: center; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
     }
   </style>
 </head>
@@ -409,34 +314,28 @@
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#features">Features</a>
-      <a href="#install">Install</a>
+      <a href="#install">Installation</a>
       <a href="https://github.com/chriz-3656/webdock">GitHub</a>
     </div>
   </nav>
 
   <section class="hero">
-    <div class="badge">[ SYSTEM: ONLINE ] V1.0</div>
-    <h1>YOUR WEB APPS. <br> ONE DOCK.</h1>
-    <p>Escape the chaos of a hundred browser tabs. Transform your favorite web services into blazing fast, sandboxed native desktop applications.</p>
+    <h1>Your web apps. One dock.</h1>
+    <p>Escape the chaos of browser tabs. Transform your favorite web services into blazing fast, sandboxed native desktop applications.</p>
     
     <div class="cta-group">
       <a href="https://github.com/chriz-3656/webdock/releases" class="btn btn-primary">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M21 15v4H3v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Download
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Download WebDock
       </a>
       <a href="https://github.com/chriz-3656/webdock" class="btn btn-secondary" target="_blank">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-        Source
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        View Source
       </a>
     </div>
   </section>
 
   <section class="carousel-section">
-    <div class="carousel-header">
-      <h2>// INTERFACE</h2>
-      <div class="mono" style="font-weight:700;">[ PREVIEW ]</div>
-    </div>
-    
     <div class="carousel-container">
       <div class="carousel-slides" id="slides">
         <div class="slide"><img src="screenshots/1.png" alt="Screenshot 1"></div>
@@ -446,86 +345,83 @@
         <div class="slide"><img src="screenshots/5.png" alt="Screenshot 5"></div>
         <div class="slide"><img src="screenshots/6.png" alt="Screenshot 6"></div>
       </div>
-      <div class="carousel-controls">
-        <button class="carousel-btn" id="prevBtn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          <span>PREV</span>
-        </button>
-        <button class="carousel-btn" id="nextBtn">
-          <span>NEXT</span>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
+      <button class="carousel-btn carousel-prev" id="prevBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="carousel-btn carousel-next" id="nextBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <h2 class="section-title">Minimalist Architecture</h2>
+    <div class="grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="card">
+        <h3>Raw Native Views</h3>
+        <p>WebDock is engineered using Electron's raw `WebContentsView` API. Instead of building complex browser UI loops, WebDock directly proxies native views to your operating system window.</p>
+      </div>
+      <div class="card">
+        <h3>Zero Frameworks</h3>
+        <p>Zero React. Zero Vue. Zero bloat. The WebDock interface you interact with is written in 100% vanilla HTML, CSS, and TypeScript. Pure speed. Pure performance.</p>
       </div>
     </div>
   </section>
 
-  <section id="about" class="features-section">
-    <h2 class="section-title">MINIMALIST ARCHITECTURE</h2>
-    <div class="grid">
-      <div class="card" style="grid-column: 1 / -1; display: flex; gap: 32px; flex-wrap: wrap; background: var(--accent-1); color: var(--bg); box-shadow: 8px 8px 0 var(--fg);">
-        <div style="flex: 1; min-width: 300px;">
-          <h3 style="font-size: 2.5rem; margin-bottom: 24px;">RAW NATIVE VIEWS</h3>
-          <p style="color: var(--bg); font-size: 1.2rem;">WebDock is engineered using Electron's raw `WebContentsView` API. Instead of building complex browser UI loops, WebDock directly proxies native views to your operating system window.</p>
-        </div>
-        <div style="flex: 1; min-width: 300px;">
-          <h3 style="font-size: 2.5rem; margin-bottom: 24px;">ZERO FRAMEWORKS</h3>
-          <p style="color: var(--bg); font-size: 1.2rem;">Zero React. Zero Vue. Zero bloat. The WebDock interface you interact with is written in 100% vanilla HTML, CSS, and TypeScript. Pure speed. Pure performance.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="features" class="features-section">
-    <h2 class="section-title">SYSTEM FEATURES</h2>
+  <section id="features" class="section">
+    <h2 class="section-title">Core Features</h2>
     <div class="grid">
       
       <div class="card">
         <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
         </div>
-        <h3>SANDBOXED</h3>
+        <h3>Sandboxed Security</h3>
         <p>Each app runs in a fully partitioned environment. No cross-site tracking, bleeding cookies, or rogue extensions.</p>
       </div>
 
       <div class="card">
         <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><rect x="3" y="3" width="18" height="18"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
         </div>
-        <h3>UNIFIED</h3>
+        <h3>Unified Workspace</h3>
         <p>Combine GitHub, Figma, Spotify, Slack and more into a single elegant sidebar. Reclaim your workflow.</p>
       </div>
       
       <div class="card">
         <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
         </div>
-        <h3>INTEGRATED</h3>
+        <h3>Native Integration</h3>
         <p>Feels like a true desktop application with custom window controls and deep OS-level integration.</p>
       </div>
 
     </div>
   </section>
   
-  <section id="install" class="install-section">
-    <h2 class="section-title">INSTALLATION</h2>
+  <section id="install" class="section">
+    <h2 class="section-title">Installation</h2>
     
     <div class="code-block">
       <div class="code-header">
-        <span>BASH_TERMINAL</span>
-        <button class="copy-btn" id="copyBtn">[ COPY ]</button>
+        <span>bash</span>
+        <button class="copy-btn" id="copyBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy
+        </button>
       </div>
       <div class="code-body">
 <pre id="codeContent">
-<span class="code-comment"># CLONE REPOSITORY</span>
+<span class="code-comment"># Clone the repository</span>
 <span class="code-command">git</span> clone https://github.com/chriz-3656/webdock.git
 
-<span class="code-comment"># NAVIGATE</span>
+<span class="code-comment"># Navigate to directory</span>
 <span class="code-command">cd</span> webdock
 
-<span class="code-comment"># INSTALL DEPS</span>
+<span class="code-comment"># Install dependencies</span>
 <span class="code-command">npm</span> install
 
-<span class="code-comment"># START</span>
+<span class="code-comment"># Start the application</span>
 <span class="code-command">npm</span> start
 </pre>
       </div>
@@ -533,15 +429,8 @@
   </section>
 
   <footer>
-    <div>
-      <div class="footer-logo">WEBDOCK</div>
-      <div>&copy; 2026 CHRIZ-3656<br>MIT LICENSE</div>
-    </div>
-    <div class="footer-links">
-      <a href="#about">ABOUT</a>
-      <a href="#features">FEATURES</a>
-      <a href="https://github.com/chriz-3656/webdock">GITHUB REPO</a>
-    </div>
+    <div class="footer-logo">WebDock</div>
+    <div>&copy; 2026 Chriz-3656. MIT License.</div>
   </footer>
 
   <script>
@@ -550,15 +439,11 @@
     copyBtn.addEventListener('click', () => {
       const textToCopy = `git clone https://github.com/chriz-3656/webdock.git\ncd webdock\nnpm install\nnpm start`;
       navigator.clipboard.writeText(textToCopy).then(() => {
-        const originalContent = copyBtn.innerText;
-        copyBtn.innerText = '[ COPIED! ]';
-        copyBtn.style.background = 'var(--fg)';
-        copyBtn.style.color = 'var(--bg)';
+        const originalContent = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied';
         
         setTimeout(() => {
-          copyBtn.innerText = originalContent;
-          copyBtn.style.background = 'var(--accent-1)';
-          copyBtn.style.color = 'var(--bg)';
+          copyBtn.innerHTML = originalContent;
         }, 2000);
       });
     });
@@ -573,7 +458,6 @@
     const totalSlides = slides.length;
     
     function updateCarousel() {
-      // Brutalist step transition effect
       slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
     
@@ -591,12 +475,12 @@
     prevBtn.addEventListener('click', prevSlide);
     
     // Auto-advance carousel
-    let autoPlay = setInterval(nextSlide, 3000);
+    let autoPlay = setInterval(nextSlide, 4000);
     
     // Pause on hover
     document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(autoPlay));
     document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
-      autoPlay = setInterval(nextSlide, 3000);
+      autoPlay = setInterval(nextSlide, 4000);
     });
   </script>
 </body>
