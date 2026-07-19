@@ -11,7 +11,11 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
-  "author": "Chriz-3656",
+  "author": {
+    "name": "Chriz-3656",
+    "email": "chriz@example.com"
+  },
+  "homepage": "https://github.com/chriz-3656/webdock",
   "license": "MIT",
   "dependencies": {
     "electron-store": "^8.2.0",
