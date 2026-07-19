@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebDock - Your web apps. One dock.</title>
+  <meta name="description" content="WebDock is a blazing fast, lightweight native desktop environment that transforms your favorite websites and web apps into standalone native desktop applications.">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #050505;
+      --surface-color: rgba(255, 255, 255, 0.03);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;
+      --secondary: #a855f7;
+      --text-main: #ffffff;
+      --text-muted: #9ca3af;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* Background animated blobs */
+    .blob {
+      position: absolute;
+      filter: blur(120px);
+      z-index: -1;
+      opacity: 0.6;
+      border-radius: 50%;
+      animation: float 20s infinite alternate ease-in-out;
+    }
+    .blob-1 {
+      top: -10%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.4) 0%, rgba(99,102,241,0) 70%);
+      animation-delay: 0s;
+    }
+    .blob-2 {
+      bottom: -10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(168,85,247,0) 70%);
+      animation-delay: -5s;
+    }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(50px, 30px) scale(1.1); }
+      100% { transform: translate(-30px, 50px) scale(0.9); }
+    }
+    
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 10%;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    nav.scrolled {
+      padding: 20px 10%;
+      background: rgba(5, 5, 5, 0.7);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+      margin-top: 50px;
+      perspective: 1000px;
+    }
+    .badge {
+      padding: 8px 16px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 30px;
+      color: #818cf8;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      animation: fadeUp 0.8s ease-out;
+    }
+    .hero h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 20px;
+      max-width: 900px;
+      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeUp 1s ease-out 0.2s backwards;
+    }
+    .hero p {
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin-bottom: 40px;
+      animation: fadeUp 1s ease-out 0.4s backwards;
+    }
+    .cta-group {
+      display: flex;
+      gap: 20px;
+      animation: fadeUp 1s ease-out 0.6s backwards;
+    }
+    
+    .btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.5);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.6);
+    }
+    .btn-secondary {
+      background: var(--surface-color);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-3px);
+    }
+    
+    /* App Preview Mockup */
+    .app-preview {
+      margin-top: 80px;
+      width: 100%;
+      max-width: 1000px;
+      height: 550px;
+      background: rgba(10, 10, 10, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(99,102,241,0.2);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      animation: floatMockup 6s ease-in-out infinite alternate, fadeUp 1s ease-out 0.8s backwards;
+      transform-style: preserve-3d;
+      transform: rotateX(5deg);
+    }
+    
+    @keyframes floatMockup {
+      0% { transform: translateY(0px) rotateX(5deg); }
+      100% { transform: translateY(-15px) rotateX(2deg); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .mockup-header {
+      height: 50px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 8px;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+    
+    .mockup-body {
+      display: flex;
+      height: calc(100% - 50px);
+    }
+    .mockup-sidebar {
+      width: 200px;
+      border-right: 1px solid var(--border-color);
+      background: rgba(255,255,255,0.01);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .mockup-item {
+      height: 30px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      width: 100%;
+    }
+    .mockup-item.active {
+      background: rgba(99, 102, 241, 0.2);
+      border-left: 3px solid var(--primary);
+    }
+    .mockup-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: radial-gradient(circle at center, rgba(99,102,241,0.05) 0%, transparent 70%);
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 100px 10%;
+      position: relative;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 60px;
+      letter-spacing: -0.02em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px 30px;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at top right, rgba(99,102,241,0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .card:hover::before {
+      opacity: 1;
+    }
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(99,102,241,0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      color: var(--primary);
+    }
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    .card p {
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 50px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.5);
+    }
+    .footer-text {
+      color: var(--text-muted);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3.5rem; }
+      .hero p { font-size: 1.1rem; }
+      .cta-group { flex-direction: column; }
+      .app-preview { height: 350px; }
+      .mockup-sidebar { display: none; }
+      nav { padding: 20px 5%; }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <nav id="navbar">
+    <div class="logo">
+      <img src="assets/icon.png" alt="WebDock Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTAiIGZpbGw9IiM2MzY2ZjEiLz48L3N2Zz4='">
+      WebDock
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="https://github.com/chriz-3656/webdock">GitHub</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">🚀 v1.0 is now available</div>
+    <h1>Your web apps.<br>One unified dock.</h1>
+    <p>Escape the chaos of a hundred browser tabs. WebDock transforms your favorite web services into blazing fast, sandboxed native desktop applications.</p>
+    
+    <div class="cta-group">
+      <a href="https://github.com/chriz-3656/webdock/releases" class="btn btn-primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Download WebDock
+      </a>
+      <a href="https://github.com/chriz-3656/webdock" class="btn btn-secondary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        View Source
+      </a>
+    </div>
+    
+    <div class="app-preview">
+      <div class="mockup-header">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <div style="flex:1; text-align:center; font-size: 12px; color: var(--text-muted); padding-right: 50px;">WebDock Workspace</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="mockup-item"></div>
+          <div class="mockup-item active"></div>
+          <div class="mockup-item"></div>
+          <div class="mockup-item"></div>
+        </div>
+        <div class="mockup-content">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.5)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 12 12 17 22 12"></polyline><polyline points="2 17 12 22 22 17"></polyline></svg>
+          <h2 style="margin-top:20px; font-weight: 500; color: rgba(255,255,255,0.7);">Isolated Web View</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <h2 class="section-title">Why choose WebDock?</h2>
+    <div class="grid">
+      
+      <div class="card">
+        <div class="card-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        </div>
+        <h3>Blazing Fast</h3>
+        <p>Bypasses bulky browser rendering chrome, delivering unmatched speed and drastically reducing your machine's RAM footprint.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h3>Sandboxed Security</h3>
+        <p>Each app runs in a fully partitioned environment. No cross-site tracking, bleeding cookies, or rogue extensions.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        </div>
+        <h3>Unified Workspace</h3>
+        <p>Combine GitHub, Figma, Spotify, Slack and more into a single elegant sidebar. Stay focused and reclaim your productivity.</p>
+      </div>
+      
+      <div class="card">
+        <div class="card-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        </div>
+        <h3>Native Integration</h3>
+        <p>Feels like a true desktop application with custom window controls, keyboard shortcuts, and deep OS-level integration.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo">
+      WebDock
+    </div>
+    <div class="footer-text">
+      &copy; 2026 Chriz-3656. Released under the MIT License.
+    </div>
+  </footer>
+
+  <script>
+    // Simple navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
