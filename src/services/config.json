@@ -1,0 +1,95 @@
+{
+  "builtIn": [
+    {
+      "id": "whatsapp",
+      "name": "WhatsApp",
+      "url": "https://web.whatsapp.com/",
+      "icon": "fab fa-whatsapp",
+      "category": "Communication"
+    },
+    {
+      "id": "discord",
+      "name": "Discord",
+      "url": "https://discord.com/app",
+      "icon": "fab fa-discord",
+      "category": "Communication"
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram",
+      "url": "https://web.telegram.org/",
+      "icon": "fab fa-telegram",
+      "category": "Communication"
+    },
+    {
+      "id": "x",
+      "name": "X",
+      "url": "https://x.com/",
+      "icon": "fab fa-x-twitter",
+      "category": "Social"
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "url": "https://www.instagram.com/",
+      "icon": "fab fa-instagram",
+      "category": "Social"
+    },
+    {
+      "id": "facebook",
+      "name": "Facebook",
+      "url": "https://www.facebook.com/",
+      "icon": "fab fa-facebook",
+      "category": "Social"
+    },
+    {
+      "id": "threads",
+      "name": "Threads",
+      "url": "https://www.threads.net/",
+      "icon": "fab fa-threads",
+      "category": "Social"
+    },
+    {
+      "id": "snapchat",
+      "name": "Snapchat Web",
+      "url": "https://web.snapchat.com/",
+      "icon": "fab fa-snapchat",
+      "category": "Social"
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/",
+      "icon": "fab fa-linkedin",
+      "category": "Social"
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit",
+      "url": "https://www.reddit.com/",
+      "icon": "fab fa-reddit",
+      "category": "Social"
+    },
+    {
+      "id": "gmail",
+      "name": "Gmail",
+      "url": "https://mail.google.com/",
+      "icon": "fab fa-google",
+      "category": "Productivity"
+    },
+    {
+      "id": "spotify",
+      "name": "Spotify",
+      "url": "https://open.spotify.com/",
+      "icon": "fab fa-spotify",
+      "category": "Entertainment"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "url": "https://www.youtube.com/",
+      "icon": "fab fa-youtube",
+      "category": "Entertainment"
+    }
+  ]
+}

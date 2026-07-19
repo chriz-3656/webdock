@@ -1,0 +1,54 @@
+{
+  "name": "webdock",
+  "version": "1.0.0",
+  "description": "Your web apps. One dock.",
+  "main": "build/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "tsc && npm run copy",
+    "copy": "mkdir -p build/renderer build/styles build/services && cp src/renderer/*.html build/renderer/ && cp -r src/styles/* build/styles/ && cp -r src/services/* build/services/",
+    "watch": "tsc -w",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "Chriz-3656",
+  "license": "MIT",
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "electron-updater": "^6.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "electron": "^31.3.1",
+    "electron-builder": "^24.13.3",
+    "typescript": "^5.5.4"
+  },
+  "build": {
+    "appId": "com.chriz-3656.webdock",
+    "productName": "WebDock",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "assets/icon.png",
+      "category": "Utility"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.png"
+    }
+  }
+}

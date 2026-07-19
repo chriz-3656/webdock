@@ -1,0 +1,19 @@
+appId: com.chriz3656.webdock
+productName: WebDock
+directories:
+  output: dist
+files:
+  - build/**/*
+  - assets/**/*
+  - package.json
+mac:
+  target: dmg
+  icon: assets/icon.png
+  category: public.app-category.productivity
+win:
+  target: nsis
+  icon: assets/icon.png
+linux:
+  target: AppImage
+  icon: assets/icon.png
+  category: Utility

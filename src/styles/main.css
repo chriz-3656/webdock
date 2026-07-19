@@ -1,0 +1,229 @@
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Sidebar */
+#sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: var(--surface-color);
+  border-right: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar-header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+  letter-spacing: -0.05em;
+  -webkit-app-region: drag;
+  gap: 10px;
+}
+
+#sidebar-header img {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+#sidebar-sections {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px 10px;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: var(--transition);
+  font-weight: 500;
+  color: var(--text-muted);
+  -webkit-app-region: no-drag;
+}
+
+.service-item:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color);
+}
+
+.service-item.active {
+  background-color: var(--hover-color);
+  color: var(--accent-color);
+}
+
+.service-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+/* Topbar */
+#topbar {
+  flex: none;
+  height: 50px;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  -webkit-app-region: drag;
+}
+
+.window-controls {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  -webkit-app-region: no-drag;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-app-region: no-drag;
+}
+
+.btn:hover {
+  background-color: var(--hover-color);
+  border-color: var(--text-muted);
+}
+
+.category-header {
+  padding: 15px 12px 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  height: 100%;
+  border-right: 1px solid var(--border-color);
+  cursor: pointer;
+  min-width: 140px;
+  max-width: 220px;
+  user-select: none;
+  transition: var(--transition);
+  color: var(--text-muted);
+  -webkit-app-region: no-drag;
+}
+
+.tab:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color);
+}
+
+.tab.active {
+  background-color: var(--surface-color);
+  box-shadow: inset 0 -2px 0 var(--accent-color);
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.tab-title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.85rem;
+}
+
+.tab-close {
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  -webkit-app-region: no-drag;
+}
+
+.tab-close:hover {
+  color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Splash Screen Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.logo-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes slideCarousel {
+  0%, 12.5% { transform: translateY(0); }
+  16%, 29% { transform: translateY(-120px); }
+  33%, 45% { transform: translateY(-240px); }
+  50%, 62.5% { transform: translateY(-360px); }
+  66%, 79% { transform: translateY(-480px); }
+  83%, 95% { transform: translateY(-600px); }
+  100% { transform: translateY(0); }
+}
+
+.carousel-track {
+  animation: slideCarousel 24s infinite;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-slide {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-slide h3 {
+  margin: 0 0 10px 0;
+  color: var(--text-color);
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+}
+
+.carousel-slide p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}

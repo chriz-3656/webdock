@@ -1,0 +1,32 @@
+:root {
+  /* Dark Theme Default */
+  --bg-color: #0A0A0A;
+  --surface-color: #141414;
+  --border-color: #2E2E2E;
+  --text-color: #FAFAFA;
+  --text-muted: #A1A1AA;
+  --accent-color: #3B82F6;
+  --hover-color: #1F1F1F;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg-color: #F8FAFC;
+  --surface-color: #FFFFFF;
+  --border-color: #E2E8F0;
+  --text-color: #0F172A;
+  --text-muted: #64748B;
+  --accent-color: #2563EB;
+  --hover-color: #F1F5F9;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  letter-spacing: -0.02em;
+}
