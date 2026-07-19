@@ -322,8 +322,35 @@ async function init() {
   document.getElementById('shortcuts-btn')!.addEventListener('click', () => {
     alert('Keyboard Shortcuts: \nCtrl+T: New Tab\nCtrl+W: Close Tab\n(More coming soon)');
   });
+  let updateReady = false;
   document.getElementById('updates-btn')!.addEventListener('click', () => {
-    alert('Checking for updates... You are on the latest version!');
+    if (updateReady) {
+      (window as any).api.restartApp();
+    } else {
+      alert('Checking for updates... You will be notified automatically if an update is found in the background.');
+    }
+  });
+
+  // Shortcuts & Updates IPC
+  (window as any).api.onShortcutNewTab(() => {
+    document.getElementById('settings-btn')!.click();
+  });
+  
+  (window as any).api.onShortcutCloseTab(() => {
+    if (activeId) closeAppTab(activeId);
+  });
+
+  (window as any).api.onUpdateAvailable(() => {
+    const btn = document.getElementById('updates-btn')!;
+    btn.innerHTML = '⟳ Downloading Update...';
+    btn.style.color = 'var(--accent-color)';
+  });
+  
+  (window as any).api.onUpdateDownloaded(() => {
+    updateReady = true;
+    const btn = document.getElementById('updates-btn')!;
+    btn.innerHTML = '🚀 Install Update';
+    btn.style.color = '#10B981';
   });
   document.getElementById('dev-tab-btn')!.addEventListener('click', () => {
     const devService = {

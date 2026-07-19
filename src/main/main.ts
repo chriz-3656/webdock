@@ -1,7 +1,8 @@
-import { app, BaseWindow, BrowserWindow, WebContentsView, ipcMain, screen, shell } from 'electron';
+import { app, BaseWindow, BrowserWindow, WebContentsView, ipcMain, screen, shell, Menu } from 'electron';
 import * as path from 'path';
 import Store from 'electron-store';
 import * as fs from 'fs';
+import { autoUpdater } from 'electron-updater';
 
 const store = new Store();
 
@@ -266,6 +267,65 @@ function switchTab(id: string) {
 
 app.whenReady().then(() => {
   createWindow();
+  
+  // Application Menu for Shortcuts
+  const template: any = [
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'New Tab',
+          accelerator: 'CmdOrCtrl+T',
+          click: () => {
+            if (uiView) uiView.webContents.send('shortcut-new-tab');
+          }
+        },
+        {
+          label: 'Close Tab',
+          accelerator: 'CmdOrCtrl+W',
+          click: () => {
+            if (uiView) uiView.webContents.send('shortcut-close-tab');
+          }
+        },
+        { type: 'separator' },
+        { role: 'quit' }
+      ]
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        { role: 'reload' },
+        { role: 'toggleDevTools' }
+      ]
+    }
+  ];
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+
+  // Check for updates
+  autoUpdater.checkForUpdatesAndNotify();
+  
+  autoUpdater.on('update-available', () => {
+    if (uiView) uiView.webContents.send('update-available');
+  });
+  
+  autoUpdater.on('update-downloaded', () => {
+    if (uiView) uiView.webContents.send('update-downloaded');
+  });
+
+  ipcMain.on('restart-app', () => {
+    autoUpdater.quitAndInstall();
+  });
   
   app.on('activate', () => {
     if (BaseWindow.getAllWindows().length === 0) {

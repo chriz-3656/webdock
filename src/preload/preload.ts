@@ -43,5 +43,20 @@ contextBridge.exposeInMainWorld('api', {
     ipcRenderer.on('update-status', (_event, status) => callback(status));
   },
   
-  toggleSettingsView: (isOpen: boolean) => ipcRenderer.send('toggle-settings-view', isOpen)
+  toggleSettingsView: (isOpen: boolean) => ipcRenderer.send('toggle-settings-view', isOpen),
+  
+  // Shortcuts & Updates
+  onShortcutNewTab: (callback: () => void) => {
+    ipcRenderer.on('shortcut-new-tab', () => callback());
+  },
+  onShortcutCloseTab: (callback: () => void) => {
+    ipcRenderer.on('shortcut-close-tab', () => callback());
+  },
+  onUpdateAvailable: (callback: () => void) => {
+    ipcRenderer.on('update-available', () => callback());
+  },
+  onUpdateDownloaded: (callback: () => void) => {
+    ipcRenderer.on('update-downloaded', () => callback());
+  },
+  restartApp: () => ipcRenderer.send('restart-app')
 });
