@@ -6,14 +6,26 @@ files:
   - build/**/*
   - assets/**/*
   - package.json
+publish:
+  provider: github
+  releaseType: release
 mac:
-  target: dmg
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
   icon: assets/icon.png
   category: public.app-category.productivity
+  identity: null
 win:
-  target: nsis
+  target:
+    - target: nsis
+    - target: portable
   icon: assets/icon.png
 linux:
-  target: AppImage
+  target:
+    - target: AppImage
+    - target: deb
   icon: assets/icon.png
   category: Utility

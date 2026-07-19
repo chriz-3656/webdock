@@ -1,18 +1,21 @@
-name: Build WebDock
+name: Build and Release WebDock
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+    tags:
+      - 'v*'
 
 jobs:
   build:
+    name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+    
+    # Required for creating releases and uploading assets automatically
+    permissions:
+      contents: write
 
     steps:
     - name: Check out Git repository
@@ -25,22 +28,16 @@ jobs:
         cache: 'npm'
 
     - name: Install Dependencies
-      run: npm ci
+      # Using install instead of ci because package-lock.json might be missing the newly added shx dependency locally
+      run: npm install
 
     - name: Build TypeScript & Copy Assets
       run: npm run build
 
-    - name: Build Electron App
-      run: npm run dist
+    - name: Publish Electron App
+      run: npm run dist -- --publish always
       env:
+        # Pass GitHub token to allow electron-builder to create the release and upload assets
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: webdock-builds-${{ matrix.os }}
-        path: |
-          dist/*.exe
-          dist/*.AppImage
-          dist/*.deb
-          dist/*.dmg
+        # Skip macOS code signing identity discovery to allow unsigned builds to succeed
+        CSC_IDENTITY_AUTO_DISCOVERY: false
