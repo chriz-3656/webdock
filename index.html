@@ -358,7 +358,7 @@
       <a href="#features">Features</a>
       <a href="#architecture">Architecture</a>
       <a href="https://github.com/chriz-3656/webdock">Documentation</a>
-      <a href="https://github.com/chriz-3656/webdock/releases" class="nav-cta">Download App</a>
+      <a href="#download-page" class="nav-cta auto-download">Download App</a>
     </div>
   </nav>
 
@@ -368,9 +368,9 @@
     <p>Escape the chaos of browser tabs. Transform your favorite web services into blazing fast, sandboxed native desktop applications.</p>
     
     <div class="cta-group">
-      <a href="https://github.com/chriz-3656/webdock/releases" class="btn btn-primary">
+      <a href="#download-page" class="btn btn-primary auto-download" id="hero-download-btn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Download for Linux
+        <span id="hero-download-text">Download App</span>
       </a>
       <a href="#code" class="btn btn-secondary">
         View Installation
@@ -472,12 +472,12 @@
     </div>
   </section>
 
-  <section class="bottom-cta">
-    <h2>Ready to optimize your workflow?</h2>
-    <p>Download the latest release and take control of your web apps.</p>
-    <a href="https://github.com/chriz-3656/webdock/releases" class="btn btn-primary">
-      Download WebDock Now
-    </a>
+  <section id="download-page" class="bottom-cta">
+    <h2>Download WebDock</h2>
+    <p>Select your operating system below to download the latest native release.</p>
+    <div id="downloads-grid" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+      <p style="color: var(--text-muted);">Fetching latest releases...</p>
+    </div>
   </section>
 
   <footer>
@@ -537,6 +537,61 @@
     document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
       autoPlay = setInterval(nextSlide, 4000);
     });
+
+    // Auto System Detection and Downloads
+    async function fetchDownloads() {
+      try {
+        const response = await fetch('https://api.github.com/repos/chriz-3656/webdock/releases/latest');
+        const data = await response.json();
+        
+        let winUrl = '', macUrl = '', linuxUrl = '';
+        
+        data.assets.forEach(asset => {
+          if (asset.name.endsWith('.exe') && asset.name.includes('Setup')) winUrl = asset.browser_download_url;
+          if (asset.name.endsWith('.dmg') && !asset.name.includes('arm64')) macUrl = asset.browser_download_url;
+          if (asset.name.endsWith('.AppImage')) linuxUrl = asset.browser_download_url;
+        });
+
+        let osName = 'Unknown';
+        let autoUrl = data.html_url;
+        
+        if (navigator.userAgent.indexOf("Win") !== -1) {
+          osName = 'Windows';
+          autoUrl = winUrl || autoUrl;
+        } else if (navigator.userAgent.indexOf("Mac") !== -1) {
+          osName = 'macOS';
+          autoUrl = macUrl || autoUrl;
+        } else if (navigator.userAgent.indexOf("Linux") !== -1 || navigator.userAgent.indexOf("X11") !== -1) {
+          osName = 'Linux';
+          autoUrl = linuxUrl || autoUrl;
+        }
+
+        if (osName !== 'Unknown') {
+          document.getElementById('hero-download-text').innerText = `Download for ${osName}`;
+        }
+        document.querySelectorAll('.auto-download').forEach(btn => btn.href = autoUrl);
+
+        const grid = document.getElementById('downloads-grid');
+        grid.innerHTML = `
+          <a href="${winUrl || data.html_url}" class="btn btn-secondary" style="width: 200px; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Windows
+          </a>
+          <a href="${macUrl || data.html_url}" class="btn btn-secondary" style="width: 200px; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"></path><path d="M10 2c1 .5 2 2 2 5h-1c-1.5 0-2-1.5-2-5Z"></path></svg>
+            macOS
+          </a>
+          <a href="${linuxUrl || data.html_url}" class="btn btn-secondary" style="width: 200px; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><path d="M12 2a9 9 0 0 0-9 9c0 4.97 4.03 9 9 9s9-4.03 9-9a9 9 0 0 0-9-9z"></path><path d="M12 18v-8"></path><path d="M12 8h.01"></path></svg>
+            Linux
+          </a>
+        `;
+      } catch (err) {
+        document.getElementById('downloads-grid').innerHTML = '<p style="color: var(--text-muted);">Failed to load releases. <a href="https://github.com/chriz-3656/webdock/releases" style="color: var(--accent-color);">View on GitHub</a></p>';
+      }
+    }
+    
+    fetchDownloads();
   </script>
 </body>
 </html>
