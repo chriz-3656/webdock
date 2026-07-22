@@ -5,39 +5,39 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    
-    # Required for creating releases and uploading assets automatically
-    permissions:
-      contents: write
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
 
     steps:
-    - name: Check out Git repository
-      uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
-    - name: Install Dependencies
-      # Using install instead of ci because package-lock.json might be missing the newly added shx dependency locally
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Build TypeScript & Copy Assets
-      run: npm run build
+      - name: Build TypeScript & Copy Assets
+        run: npm run build
 
-    - name: Publish Electron App
-      run: npm run dist -- --publish always
-      env:
-        # Pass GitHub token to allow electron-builder to create the release and upload assets
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # Skip macOS code signing identity discovery to allow unsigned builds to succeed
-        CSC_IDENTITY_AUTO_DISCOVERY: false
+      - name: Build & Publish Electron App
+        run: npm run dist -- --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
