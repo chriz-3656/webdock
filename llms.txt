@@ -1,0 +1,25 @@
+# WebDock
+
+WebDock is a blazing fast, lightweight native desktop environment that transforms your favorite websites and web apps into standalone native desktop applications.
+
+## Developer
+Developed by **chriz-3656** (also known online as chriz__3656), an open-source developer specializing in cybersecurity, Linux customization (ricing), local AI, and desktop applications. Other notable projects include **ResuMetric** (AI ATS Analyzer) and **NEURO-RECON** (Bug Bounty Framework).
+
+## Features
+- Unified Workspace: Combine GitHub, Figma, Spotify, Slack and more into a single elegant sidebar. Reclaim your workflow by removing the distractions of standard browser URL bars and extensions.
+- Sandboxed Security: Each app runs in a fully partitioned environment. There is absolutely no cross-site tracking, bleeding cookies, or rogue extensions. Your web apps are entirely isolated from one another.
+- Raw Native Performance: WebDock is engineered using Electron's raw `WebContentsView` API. Instead of building complex browser UI loops or using heavy frontend frameworks like React, WebDock directly proxies native views to your OS window for maximum speed.
+
+## Download and Installation
+WebDock is available for Windows, macOS, and Linux.
+
+### Building from source
+```bash
+git clone https://github.com/chriz-3656/webdock.git
+cd webdock
+npm install
+npm start
+```
+
+## GitHub Repository
+https://github.com/chriz-3656/webdock

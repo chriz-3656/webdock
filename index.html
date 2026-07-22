@@ -3,9 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebDock - The ultimate desktop workspace for your web apps</title>
-  <meta name="description" content="WebDock is a blazing fast, lightweight native desktop environment that transforms your favorite websites and web apps into standalone native desktop applications.">
-  <link rel="icon" type="image/png" href="assets/icon.png">
+  
+  <!-- Primary Meta Tags -->
+  <title>WebDock - The Ultimate Desktop Workspace for Web Apps</title>
+  <meta name="title" content="WebDock - The Ultimate Desktop Workspace for Web Apps">
+  <meta name="description" content="WebDock by chriz-3656 is a blazing fast native desktop environment that transforms your favorite websites into standalone applications.">
+  <meta name="keywords" content="webdock, chriz-3656, chriz__3656, web app wrapper, native wrapper, electron web app, productivity tool, ResuMetric, NEURO-RECON, linux customization, open-source">
+  <meta name="author" content="chriz-3656">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://chriz-3656.github.io/webdock/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chriz-3656.github.io/webdock/">
+  <meta property="og:title" content="WebDock - The Ultimate Desktop Workspace for Web Apps">
+  <meta property="og:description" content="Transform your favorite websites into blazing fast, sandboxed native desktop apps.">
+  <meta property="og:image" content="https://chriz-3656.github.io/webdock/assets/website.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://chriz-3656.github.io/webdock/">
+  <meta property="twitter:title" content="WebDock - The Ultimate Desktop Workspace for Web Apps">
+  <meta property="twitter:description" content="Transform your favorite websites into blazing fast, sandboxed native desktop apps.">
+  <meta property="twitter:image" content="https://chriz-3656.github.io/webdock/assets/website.png">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -137,6 +162,20 @@
       color: var(--text-muted);
       max-width: 600px;
       margin-bottom: 40px;
+    }
+    
+    /* Typewriter Effect */
+    .typewrite {
+      color: var(--accent-color);
+    }
+    .typewrite > .wrap {
+      border-right: 0.08em solid var(--accent-color);
+      padding-right: 2px;
+      animation: blink-cursor 1s ease-in-out infinite;
+    }
+    @keyframes blink-cursor {
+      0%, 100% { border-color: var(--accent-color); }
+      50% { border-color: transparent; }
     }
     .cta-group {
       display: flex;
@@ -356,16 +395,17 @@
     </div>
     <div class="nav-links">
       <a href="#features">Features</a>
-      <a href="#architecture">Architecture</a>
-      <a href="https://github.com/chriz-3656/webdock">Documentation</a>
+      <a href="#why-webdock">Why WebDock?</a>
+      <a href="#documentation">Documentation</a>
+      <a href="https://github.com/chriz-3656/webdock">GitHub</a>
       <a href="#download-page" class="nav-cta auto-download">Download App</a>
     </div>
   </nav>
 
   <section class="hero">
     <div class="hero-badge">WebDock v1.0 is now available</div>
-    <h1>The ultimate workspace for your web apps.</h1>
-    <p>Escape the chaos of browser tabs. Transform your favorite web services into blazing fast, sandboxed native desktop applications.</p>
+    <h1>The ultimate workspace for <span class="typewrite" data-period="2500" data-type='[ "your web apps.", "your workflows.", "productivity.", "everything." ]'><span class="wrap"></span></span></h1>
+    <p>Escape the chaos of endless browser tabs. Seamlessly transform your favorite web services into blazing fast, fully sandboxed native desktop applications.</p>
     
     <div class="cta-group">
       <a href="#download-page" class="btn btn-primary auto-download" id="hero-download-btn">
@@ -440,6 +480,116 @@
       </div>
     </div>
 
+    <div class="feature-block reverse">
+      <div class="feature-content">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <h2>Dynamic Tab Management</h2>
+        <p>When you switch tabs, WebDock intelligently manages background processes to return RAM and CPU resources to your machine. No more sluggish performance from 50 inactive tabs. Every inactive web app is securely put to sleep until you need it again.</p>
+      </div>
+      <div class="feature-visual">
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="var(--border-color)" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="var(--accent-color)"></path></svg>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="why-webdock" class="section" style="background: var(--surface-color);">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 24px; color: var(--text-color); text-align: center;">Why WebDock?</h2>
+      <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 40px; line-height: 1.8; text-align: center;">
+        Standard Electron apps (like Slack, Discord, or Spotify) bundle a massive chromium instance for <em>every single app</em> you install. If you run 5 of these apps, you are effectively running 5 completely separate browsers in the background. WebDock solves this by acting as a <strong>single unified container</strong>.
+      </p>
+      <div style="background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);">
+        <p style="font-size: 1.25rem; font-weight: 500; color: var(--text-color);">
+          You run ONE instance of WebDock, and it elegantly hosts all of your web apps in isolated, sandboxed native partitions. This drastically reduces your system footprint, frees up RAM, and keeps your digital workspace pristine.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="documentation" class="section">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 12px; color: var(--text-color); text-align: center;">Documentation & Usage</h2>
+      <p style="color: var(--text-muted); text-align: center; margin-bottom: 60px; font-size: 1.1rem;">Everything you need to know to become a WebDock power user.</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+        <!-- Shortcuts -->
+        <div style="background: var(--surface-color); padding: 32px; border-radius: 16px; border: 1px solid var(--border-color);">
+          <div class="feature-icon" style="margin-bottom: 16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="6" y1="8" x2="6.01" y2="8"></line><line x1="10" y1="8" x2="10.01" y2="8"></line><line x1="14" y1="8" x2="14.01" y2="8"></line><line x1="18" y1="8" x2="18.01" y2="8"></line><line x1="6" y1="12" x2="6.01" y2="12"></line><line x1="10" y1="12" x2="10.01" y2="12"></line><line x1="14" y1="12" x2="14.01" y2="12"></line><line x1="18" y1="12" x2="18.01" y2="12"></line><line x1="8" y1="16" x2="16" y2="16"></line></svg></div>
+          <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; color: var(--text-color);">Keyboard Shortcuts</h3>
+          <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem;">Navigate your workspace blazingly fast without lifting your hands off the keyboard.</p>
+          <ul style="list-style: none; padding: 0; color: var(--text-muted); font-size: 0.9rem;">
+            <li style="padding: 12px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+              <span>Developer Tools</span>
+              <kbd style="background: var(--bg-color); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color); font-family: monospace; color: var(--accent-color);">Ctrl+Shift+I</kbd>
+            </li>
+            <li style="padding: 12px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+              <span>New Tab Prompt</span>
+              <kbd style="background: var(--bg-color); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color); font-family: monospace; color: var(--accent-color);">Ctrl+T</kbd>
+            </li>
+            <li style="padding: 12px 0; display: flex; justify-content: space-between; align-items: center;">
+              <span>Close Tab</span>
+              <kbd style="background: var(--bg-color); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color); font-family: monospace; color: var(--accent-color);">Ctrl+W</kbd>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Architecture -->
+        <div style="background: var(--surface-color); padding: 32px; border-radius: 16px; border: 1px solid var(--border-color);">
+          <div class="feature-icon" style="margin-bottom: 16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
+          <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; color: var(--text-color);">Under the Hood</h3>
+          <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem;">Built on the latest Electron stack with rigorous optimizations.</p>
+          <div style="display: flex; flex-direction: column; gap: 16px; font-size: 0.9rem;">
+            <div>
+              <strong style="color: var(--text-color); display: block; margin-bottom: 4px;">Main Process (`main.ts`)</strong>
+              <span style="color: var(--text-muted);">Manages the native BaseWindow and securely spins up isolated containers.</span>
+            </div>
+            <div>
+              <strong style="color: var(--text-color); display: block; margin-bottom: 4px;">Preload Script (`preload.ts`)</strong>
+              <span style="color: var(--text-muted);">A secure, context-isolated bridge between the backend system and the frontend DOM.</span>
+            </div>
+            <div>
+              <strong style="color: var(--text-color); display: block; margin-bottom: 4px;">Renderer (`renderer.ts`)</strong>
+              <span style="color: var(--text-muted);">A completely vanilla, framework-less frontend. Zero React, zero Vue, zero overhead.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="developer" class="section" style="background: var(--bg-color);">
+    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 24px; color: var(--text-color);">Meet the Developer</h2>
+      <div style="background: var(--surface-color); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <img src="https://github.com/chriz-3656.png" alt="chriz-3656" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--border-color); box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);">
+        <div>
+          <h3 style="font-size: 1.5rem; color: var(--text-color); margin-bottom: 4px;">chriz-3656</h3>
+          <p style="color: var(--accent-color); font-weight: 500; font-size: 0.95rem; margin-bottom: 16px;">
+            <span class="typewrite" data-period="2000" data-type='[ "Cybersecurity Developer", "Open-Source Contributor", "Linux Enthusiast", "AI Architect" ]'><span class="wrap"></span></span>
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; max-width: 550px; margin-left: auto; margin-right: auto;">
+            Creator of <strong>WebDock</strong>, <strong>ResuMetric</strong>, and <strong>NEURO-RECON</strong>. Passionate about Linux ricing, local AI workflows, and pushing web technologies to their native limits.
+          </p>
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://chriz-3656.github.io/" target="_blank" class="btn btn-primary" style="display: inline-flex; justify-content: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              Portfolio
+            </a>
+            <a href="https://github.com/chriz-3656" target="_blank" class="btn btn-secondary" style="display: inline-flex; justify-content: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/chrismonsaji" target="_blank" class="btn btn-secondary" style="display: inline-flex; justify-content: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="code" class="section">
@@ -536,6 +686,59 @@
     document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(autoPlay));
     document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
       autoPlay = setInterval(nextSlide, 4000);
+    });
+
+    // Smooth Typewriter Effect
+    class TypeWriter {
+      constructor(el, words, wait = 2000) {
+        this.el = el;
+        this.words = words;
+        this.txt = '';
+        this.wordIndex = 0;
+        this.wait = parseInt(wait, 10);
+        this.type();
+        this.isDeleting = false;
+      }
+
+      type() {
+        const current = this.wordIndex % this.words.length;
+        const fullTxt = this.words[current];
+
+        if (this.isDeleting) {
+          this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+          this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = `<span class="wrap">${this.txt}</span>`;
+
+        // Smooth randomized typing speed
+        let typeSpeed = 70 - Math.random() * 20;
+
+        if (this.isDeleting) {
+          typeSpeed /= 2;
+        }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+          typeSpeed = this.wait;
+          this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+          this.isDeleting = false;
+          this.wordIndex++;
+          typeSpeed = 400; // Pause before typing next word
+        }
+
+        setTimeout(() => this.type(), typeSpeed);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.typewrite');
+      elements.forEach(el => {
+        const words = JSON.parse(el.getAttribute('data-type'));
+        const wait = el.getAttribute('data-period');
+        new TypeWriter(el, words, wait);
+      });
     });
 
     // Auto System Detection and Downloads
