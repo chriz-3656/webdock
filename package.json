@@ -1,6 +1,6 @@
 {
   "name": "webdock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Your web apps. One dock.",
   "main": "build/main/main.js",
   "scripts": {
