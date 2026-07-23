@@ -33,7 +33,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-color: #0A0A0A;
@@ -62,18 +62,41 @@
       letter-spacing: -0.01em;
     }
 
+    /* Typography Overrides */
+    h1, h2, h3, .logo, .hero-badge {
+      font-family: 'Outfit', sans-serif;
+    }
+
     /* Ambient Background Glow */
     .ambient-glow {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(10,10,10,0) 70%);
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 50%;
+      position: fixed;
+      width: 150vw;
+      height: 150vh;
+      background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      top: -25vh;
+      left: -25vw;
       z-index: -1;
       pointer-events: none;
+      animation: gradientShift 15s ease infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.05) translate(2%, 2%); }
+      100% { transform: scale(1) translate(-2%, -2%); }
+    }
+
+    /* Scroll Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Navbar */
@@ -197,10 +220,12 @@
     .btn-primary {
       background-color: var(--accent-color);
       color: #ffffff;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
     }
     .btn-primary:hover {
       background-color: #2563EB;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
+      transform: translateY(-2px);
     }
     .btn-secondary {
       background-color: var(--surface-color);
@@ -209,6 +234,8 @@
     }
     .btn-secondary:hover {
       background-color: var(--hover-color);
+      border-color: var(--text-muted);
+      transform: translateY(-2px);
     }
 
     /* Hero App Presentation */
@@ -403,7 +430,7 @@
   </nav>
 
   <section class="hero">
-    <div class="hero-badge">WebDock v1.0 is now available</div>
+    <div class="hero-badge">WebDock v1.0.1 is now available</div>
     <h1>The ultimate workspace for <span class="typewrite" data-period="2500" data-type='[ "your web apps.", "your workflows.", "productivity.", "everything." ]'><span class="wrap"></span></span></h1>
     <p>Escape the chaos of endless browser tabs. Seamlessly transform your favorite web services into blazing fast, fully sandboxed native desktop applications.</p>
     
@@ -795,6 +822,23 @@
     }
     
     fetchDownloads();
+
+    // Intersection Observer for Scroll Animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const elementsToAnimate = document.querySelectorAll('.section, .hero, .bottom-cta, .feature-block');
+      elementsToAnimate.forEach(el => el.classList.add('reveal'));
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
   </script>
 </body>
 </html>
